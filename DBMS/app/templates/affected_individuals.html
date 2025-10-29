@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3" data-aos="fade-down">
+    <h1>Affected Individuals</h1>
+    {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('main.new_individual') }}" class="btn btn-success">Add New Individual</a>
+    {% endif %}
+</div>
+<div class="card shadow-sm" data-aos="fade-up">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead><tr><th>ID</th><th>Name</th><th>Injury Type</th><th>Severity</th><th>Affected Area</th>{% if current_user.role == 'admin' %}<th>Actions</th>{% endif %}</tr></thead>
+                <tbody>
+                    {% for individual in individuals %}
+                    <tr>
+                        <td>{{ individual.individual_id }}</td>
+                        <td>{{ individual.name }}</td>
+                        <td>{{ individual.injury_type or 'N/A' }}</td>
+                        <td>{{ individual.severity or 'N/A' }}</td>
+                        <td>{{ individual.area.location }}</td>
+                        {% if current_user.role == 'admin' %}
+                        <td>
+                            <a href="{{ url_for('main.update_individual', individual_id=individual.individual_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form method="POST" action="{{ url_for('main.delete_individual', individual_id=individual.individual_id) }}" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this individual?')">Delete</button>
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

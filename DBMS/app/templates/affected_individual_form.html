@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm" data-aos="fade-down">
+            <div class="card-body">
+                <h2 class="card-title text-center">{{ title }}</h2>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.injury_type.label(class="form-label") }}
+                        {{ form.injury_type(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.severity.label(class="form-label") }}
+                        {{ form.severity(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.area_id.label(class="form-label") }}
+                        {{ form.area_id(class="form-control") }}
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('main.individuals') }}" class="btn btn-secondary">Cancel</a>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

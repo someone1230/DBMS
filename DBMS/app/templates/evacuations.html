@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3" data-aos="fade-down">
+    <h1>Evacuations</h1>
+    {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('main.new_evacuation') }}" class="btn btn-success">Add New Evacuation</a>
+    {% endif %}
+</div>
+<div class="card shadow-sm" data-aos="fade-up">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead><tr><th>ID</th><th>Destination</th><th>Location</th><th>Transport</th><th>Area</th><th>Team</th>{% if current_user.role == 'admin' %}<th>Actions</th>{% endif %}</tr></thead>
+                <tbody>
+                    {% for evacuation in evacuations %}
+                    <tr>
+                        <td>{{ evacuation.eva_id }}</td>
+                        <td>{{ evacuation.destination }}</td>
+                        <td>{{ evacuation.location or 'N/A' }}</td>
+                        <td>{{ evacuation.transport or 'N/A' }}</td>
+                        <td>{{ evacuation.area.location if evacuation.area else 'N/A' }}</td>
+                        <td>{{ evacuation.team.team_name if evacuation.team else 'N/A' }}</td>
+                        {% if current_user.role == 'admin' %}
+                        <td>
+                            <a href="{{ url_for('main.update_evacuation', eva_id=evacuation.eva_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form method="POST" action="{{ url_for('main.delete_evacuation', eva_id=evacuation.eva_id) }}" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this evacuation?')">Delete</button>
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

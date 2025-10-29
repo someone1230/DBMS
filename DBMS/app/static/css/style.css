@@ -1,0 +1,19 @@
+/* Add a subtle background color */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Smooth transitions for interactive elements */
+.btn, .nav-link, .card {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Add a slight lift effect on hover for cards and buttons */
+.card:hover, .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}

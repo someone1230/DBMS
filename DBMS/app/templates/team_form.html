@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm" data-aos="fade-down">
+            <div class="card-body">
+                <h2 class="card-title text-center">{{ title }}</h2>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.team_name.label(class="form-label") }}
+                        {{ form.team_name(class="form-control", placeholder="e.g., Rescue Team Alpha") }}
+                        {% for error in form.team_name.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.team_leader.label(class="form-label") }}
+                        {{ form.team_leader(class="form-control", placeholder="e.g., John Doe") }}
+                        {% for error in form.team_leader.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.personnel.label(class="form-label") }}
+                        {{ form.personnel(class="form-control", placeholder="e.g., 10") }}
+                        {% for error in form.personnel.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.equipment.label(class="form-label") }}
+                        {{ form.equipment(class="form-control", placeholder="e.g., Trucks, Medical Kits") }}
+                        {% for error in form.equipment.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.tasks.label(class="form-label") }}
+                        {{ form.tasks(class="form-control", size=10, multiple=True) }}
+                        {% for error in form.tasks.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('main.teams') }}" class="btn btn-secondary">Cancel</a>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
